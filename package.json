@@ -1,0 +1,22 @@
+{
+  "name": "motioncloudwatch",
+  "version": "1.0.0",
+  "description": "Minor Project 6th Semester",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sky107/minor-project-6thsem.git"
+  },
+  "author": "Siddharth+Kumar+Yadav++Dayaram++Kartik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sky107/minor-project-6thsem/issues"
+  },
+  "homepage": "https://github.com/sky107/minor-project-6thsem#readme",
+  "dependencies": {
+    "express": "^4.18.0"
+  }
+}
