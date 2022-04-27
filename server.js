@@ -9,4 +9,4 @@ app.post('/send-notification',(req,res,next)=>{
 
 })
 
-app.listen(3000,()=>console.log("OK"))
+app.listen(process.env.PORT || 3000,()=>console.log("OK"))
