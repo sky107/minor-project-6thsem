@@ -16,6 +16,7 @@ var admin = require("firebase-admin");
 var serviceAccount = require("./motioncloudwatch-firebase-adminsdk-5m5xw-b872807fb5.json");
 const { json } = require("body-parser");
 const { GmailTransport } = require("./config/mail");
+const sendSms = require("./config/sms");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -34,6 +35,12 @@ app.get('/test',jsonParser,(req,res,next)=>{
     subject: `Motion alert ${new Date()}`,
     html: `<strong>Some Activity has been detected with you CloudMotionwatch Devices, please check it</strong>`,
   }
+
+const DID='CW3472834373';
+  console.log("HI")
+  sendSms(9713063026,`
+  Some activity has been detected with you DEVICE ID : ${DID} at ${new Date()}.
+  `);
 
   GmailTransport.sendMail(msg)
   .then(resp=>{

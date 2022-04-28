@@ -1,0 +1,18 @@
+
+const accountSid = 'AC73d27773c5a6a2d30428e0e756348029';
+const authToken = '31f2811a4253c04fd9ab2b8de98ae33e';
+
+const sendSms = (phone, message) => {
+  const client = require('twilio')(accountSid, authToken);
+  console.log(phone,message);
+  client.messages
+    .create({
+       body: message,
+       from: '+17622402744',
+       to: '+91'+phone
+     })
+    .then(message => console.log(message.sid))
+    .catch(err=>console.log("ERR",err));
+}
+
+module.exports = sendSms;
