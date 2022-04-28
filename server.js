@@ -25,14 +25,18 @@ const db = getFirestore();
 var jsonParser = bodyParser.json();
 
 app.post("/send-notification", jsonParser, async (req, res, next) => {
-  const { email } = req?.body;
+  var { email } = req?.body;
  
   if(!email){
-    res.json({
+   return res.json({
       success:false,
       message:"Invalid Email"
     })
   }
+
+
+console.log("EMAIL",email);
+console.log("BODY",req.body);
   const snapshot = await db
     .collection("AppUsers")
     .where("email", "==", email)
