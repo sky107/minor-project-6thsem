@@ -27,7 +27,12 @@ var jsonParser = bodyParser.json();
 app.post("/send-notification", jsonParser, async (req, res, next) => {
   const { email } = req.body;
   console.log(email);
-
+  if(!email){
+    res.json({
+      success:false,
+      message:"Invalid Email"
+    })
+  }
   const snapshot = await db
     .collection("AppUsers")
     .where("email", "==", email)
