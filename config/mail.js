@@ -7,8 +7,9 @@
 
  
  module.exports.GmailTransport = nodemailer.createTransport({
-    service: 'gmail',
     host: 'smtp.gmail.com',
+    port: 465,
+    secure: true, 
    auth: {
      user: "siddharthsk101@gmail.com",
      pass: "sidiscrazy",
