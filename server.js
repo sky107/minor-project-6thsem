@@ -15,6 +15,7 @@ var admin = require("firebase-admin");
 
 var serviceAccount = require("./motioncloudwatch-firebase-adminsdk-5m5xw-b872807fb5.json");
 const { json } = require("body-parser");
+const { GmailTransport } = require("./config/mail");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -24,12 +25,31 @@ const db = getFirestore();
 var jsonParser = bodyParser.json();
 
 
-app.get('/test',jsonParser,(req,res)=>{
+app.get('/test',jsonParser,(req,res,next)=>{
   const {email}=req.query;
-  console.log(email);
-  res.json({
-    success:true
+  const msg = {
+    to: email, // Change to your recipient
+    from: '"CloudMotionwatch" siddharth.yadav@techolution.com', // Change to your verified sender
+    subject: "Password Reset",
+    html: `<strong>Some Activity has been detected with you CloudMotionwatch Devices, please check it</strong>`,
+  };
+
+
+  GmailTransport.sendMail(msg)
+  .then(resp=>{
+    console.log(resp);
+    res.json({
+      success:true
+    });
   })
+  .catch(err=>{
+    console.log(err);
+    res.json({
+      success:false
+    });
+  })
+
+// next();
 })
 app.post("/send-notification", jsonParser, async (req, res, next) => {
   var { email } = req?.body;
