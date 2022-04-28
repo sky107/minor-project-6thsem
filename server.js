@@ -31,7 +31,7 @@ app.get('/test',jsonParser,(req,res,next)=>{
   const msg = {
     to: email, // Change to your recipient
     from: '"CloudMotionwatch" siddharthsk101@gmail.com', // Change to your verified sender
-    subject: "Password Reset",
+    subject: `Motion alert ${new Date()}`,
     html: `<strong>Some Activity has been detected with you CloudMotionwatch Devices, please check it</strong>`,
   }
 
