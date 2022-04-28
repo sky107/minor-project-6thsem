@@ -33,8 +33,7 @@ app.get('/test',jsonParser,(req,res,next)=>{
     from: '"CloudMotionwatch" siddharthsk101@gmail.com', // Change to your verified sender
     subject: "Password Reset",
     html: `<strong>Some Activity has been detected with you CloudMotionwatch Devices, please check it</strong>`,
-  };
-
+  }
 
   GmailTransport.sendMail(msg)
   .then(resp=>{
