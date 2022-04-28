@@ -25,8 +25,8 @@ const db = getFirestore();
 var jsonParser = bodyParser.json();
 
 app.post("/send-notification", jsonParser, async (req, res, next) => {
-  const { email } = req.body;
-  console.log(email);
+  const { email } = req?.body;
+ 
   if(!email){
     res.json({
       success:false,
