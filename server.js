@@ -17,13 +17,20 @@ var serviceAccount = require("./motioncloudwatch-firebase-adminsdk-5m5xw-b872807
 const { json } = require("body-parser");
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  
+  credential: admin.credential.cert(serviceAccount)
 });
 
 const db = getFirestore();
 var jsonParser = bodyParser.json();
 
+
+app.get('/test',jsonParser,(req,res)=>{
+  const {email}=req.query;
+  console.log(email);
+  res.json({
+    success:true
+  })
+})
 app.post("/send-notification", jsonParser, async (req, res, next) => {
   var { email } = req?.body;
  
@@ -52,6 +59,7 @@ console.log("BODY",req.body);
     var options = {
       priority: "normal",
       timeToLive: 60 * 60,
+      
     };
 
     var payload = {
