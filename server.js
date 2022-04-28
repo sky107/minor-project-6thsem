@@ -27,9 +27,10 @@ var jsonParser = bodyParser.json();
 
 app.get('/test',jsonParser,(req,res,next)=>{
   const {email}=req.query;
+  console.log(email);
   const msg = {
     to: email, // Change to your recipient
-    from: '"CloudMotionwatch" siddharth.yadav@techolution.com', // Change to your verified sender
+    from: '"CloudMotionwatch" siddharthsk101@gmail.com', // Change to your verified sender
     subject: "Password Reset",
     html: `<strong>Some Activity has been detected with you CloudMotionwatch Devices, please check it</strong>`,
   };
