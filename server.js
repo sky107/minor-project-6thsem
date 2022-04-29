@@ -1,5 +1,6 @@
 const app = require("express")();
 const bodyParser = require("body-parser");
+var mongoose = require("mongoose");
 const {
   initializeApp,
   applicationDefault,
@@ -12,7 +13,9 @@ const {
 } = require("firebase-admin/firestore");
 
 var admin = require("firebase-admin");
-
+var database = require("./config/database");
+var authRoutes = require("./routes/authRoutes");
+var activityRoutes = require("./routes/activityRoutes");
 var serviceAccount = require("./motioncloudwatch-firebase-adminsdk-5m5xw-b872807fb5.json");
 const { json } = require("body-parser");
 const { GmailTransport } = require("./config/mail");
@@ -25,7 +28,8 @@ admin.initializeApp({
 const db = getFirestore();
 var jsonParser = bodyParser.json();
 
-
+app.use(jsonParser,authRoutes);
+app.use(jsonParser,activityRoutes);
 app.get('/test',jsonParser,(req,res,next)=>{
   const {email}=req.query;
   console.log(email);
@@ -116,4 +120,19 @@ console.log("BODY",req.body);
   });
 });
 
-app.listen(process.env.PORT || 3000, () => console.log("OK"));
+mongoose
+  .connect(database.dbConnection, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then((response)=>{
+    app.listen(process.env.PORT || 3000, () => console.log("OK"));
+  })
+  .catch((err) => {
+    if (err.code === "ECONNREFUSED")
+      console.log(
+        "Failed to Connect with MongoDB Please check your Internet Connection"
+      );
+    else console.log("ERORR", err);
+  });
+
