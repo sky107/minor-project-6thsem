@@ -42,13 +42,14 @@ const {decodeJwtToken,reversedNum}=require('../utils/helpers')
  })
 
  router.get('/devices/count',async(req,res,next)=>{
+
+    try{
     const {token}=req.session;
     const {id:userId}=decodeJwtToken(token);
     const time = new Date().getTime();
     const id = reversedNum(time);
     const deviceId= "DC" + reversedNum(parseInt(id + Math.random() * 100));
     const tokenData=decodeJwtToken(token);
-
     const devices=await DeviceModel.find({ownerId:userId});
     let a=0,ia=0;
     for( let d of devices){
@@ -77,6 +78,12 @@ const {decodeJwtToken,reversedNum}=require('../utils/helpers')
         }
     })
 
+}
+catch(err){
+    res.json({success:false,
+        message:err.torString()
+    })
+}
  })
 
 
