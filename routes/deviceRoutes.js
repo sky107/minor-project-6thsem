@@ -81,7 +81,7 @@ const {decodeJwtToken,reversedNum}=require('../utils/helpers')
 }
 catch(err){
     res.json({success:false,
-        message:err.torString()
+        message:err.toString()
     })
 }
  })
