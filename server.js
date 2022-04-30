@@ -12,6 +12,7 @@ const {
   FieldValue,
 } = require("firebase-admin/firestore");
 
+
 var admin = require("firebase-admin");
 var database = require("./config/database");
 var authRoutes = require("./routes/authRoutes");
@@ -20,6 +21,18 @@ var serviceAccount = require("./motioncloudwatch-firebase-adminsdk-5m5xw-b872807
 const { json } = require("body-parser");
 const { GmailTransport } = require("./config/mail");
 const sendSms = require("./config/sms");
+
+
+
+const session=require('express-session');
+// const MONGODB_URI='mongodb+srv://testdb:JqfMyCWTR8YQ5p4n@cluster0.v48mv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const MongoDBStore=require('connect-mongodb-session')(session);
+const store= new MongoDBStore({uri:String(database.dbConnection),collection:'sessions'});
+app.use(session({secret:'siddharth_kumaryadav',resave:false,saveUninitialized:false,store:store}));
+
+
+
+
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)

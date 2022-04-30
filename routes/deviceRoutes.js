@@ -9,8 +9,6 @@
  const UserModel = require("../models/users.model");
 
 
-
-
  router.post('/devices',(req,res,next)=>{
    
  })

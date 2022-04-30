@@ -21,9 +21,7 @@ const activityModel = require("../models/activity.model");
  })
 
  router.post('/activity',async(req,res,next)=>{
-
         const {deviceId,ipAddress}=req.body;
-
        await  activityModel.create({
             ipAddress,
             deviceId
