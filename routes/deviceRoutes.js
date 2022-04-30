@@ -10,7 +10,7 @@
 const {decodeJwtToken,reversedNum}=require('../utils/helpers')
  const DeviceModel=require('../models/devices.model')
 
- router.post('/devices',async (req,res,next)=>{
+ router.get('/devices',async (req,res,next)=>{
     const {latitude,longitude}=req.body;
 
     const {token}=req.session;
