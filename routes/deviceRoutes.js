@@ -10,7 +10,28 @@
 const {decodeJwtToken,reversedNum}=require('../utils/helpers')
  const DeviceModel=require('../models/devices.model')
 
+
+
  router.get('/devices',async (req,res,next)=>{
+   
+    const {token}=req.session;
+    const {id:userId}=decodeJwtToken(token);
+    const time = new Date().getTime();
+    const id = reversedNum(time);
+    const deviceId= "DC" + reversedNum(parseInt(id + Math.random() * 100));
+    const tokenData=decodeJwtToken(token);
+   
+   const response=await DeviceModel.find({ownerId:userId});
+    
+
+    res.json({
+        success:true,
+        data:response
+    })
+
+ })
+
+ router.post('/devices',async (req,res,next)=>{
     const {latitude,longitude}=req.body;
 
     const {token}=req.session;
