@@ -18,6 +18,10 @@ function getJwtToken(payload = {}, expiresIn = "12hr") {
   return token;
 }
 
+function decodeJwtToken(token){
+  return jwt.decode(token,"secret_key")
+}
+
 const fileFilter = (req, file, cb) => {
   console.log(file);
   if (
@@ -55,4 +59,4 @@ function reversedNum(num) {
   );
 }
 
-module.exports = { getJwtToken, uploadUtil, reversedNum };
+module.exports = { getJwtToken, uploadUtil, reversedNum,decodeJwtToken };

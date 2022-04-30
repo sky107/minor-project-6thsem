@@ -14,8 +14,9 @@ const DeviceSchema = new mongoose.Schema(
    deviceId:String,
    latitude:String,
    longitude:String,
-   userName:String,
-   userEmail:String,
+   ownerName:String,
+   ownerEmail:String,
+   status:Number
  },
  { timestamps: true }
 );

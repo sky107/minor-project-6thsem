@@ -17,6 +17,7 @@ var admin = require("firebase-admin");
 var database = require("./config/database");
 var authRoutes = require("./routes/authRoutes");
 var activityRoutes = require("./routes/activityRoutes");
+var deviceRoutes=require('./routes/deviceRoutes');
 var serviceAccount = require("./motioncloudwatch-firebase-adminsdk-5m5xw-b872807fb5.json");
 const { json } = require("body-parser");
 const { GmailTransport } = require("./config/mail");
@@ -42,6 +43,7 @@ const db = getFirestore();
 var jsonParser = bodyParser.json();
 
 app.use(jsonParser,authRoutes);
+app.use(jsonParser,deviceRoutes);
 app.use(jsonParser,activityRoutes);
 app.get('/test',jsonParser,(req,res,next)=>{
   const {email}=req.query;
