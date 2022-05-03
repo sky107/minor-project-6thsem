@@ -42,7 +42,6 @@ admin.initializeApp({
 const db = getFirestore();
 var jsonParser = bodyParser.json();
 const authMiddlware=(req,res,next)=>{
-  console.log("TOKNE",req.session.token);
   if(req.session.token){
     next();
   }else
