@@ -11,7 +11,7 @@ const { v4: uuidv4 } = require("uuid");
 const router = express.Router();
 const { check, body } = require("express-validator");
 
-function getJwtToken(payload = {}, expiresIn = "12hr") {
+function getJwtToken(payload = {}, expiresIn = '12hr') {
   const token = jwt.sign(payload, "secret_key", {
     expiresIn: expiresIn,
   });

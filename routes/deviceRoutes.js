@@ -15,7 +15,7 @@ const {decodeJwtToken,reversedNum, getJwtToken}=require('../utils/helpers')
  router.get('/devices',async (req,res,next)=>{
    
     const {token}=req.session;
-    console.log("DECOED",getJwtToken(token));
+   
     const {id:userId}=decodeJwtToken(token);
     const time = new Date().getTime();
     const id = reversedNum(time);
@@ -50,9 +50,9 @@ const {decodeJwtToken,reversedNum, getJwtToken}=require('../utils/helpers')
          ownerId:userId.toString(),
          status:0
     })
-    console.log(userId);
+
     const user=await UserModel.findById(userId.toString());
-    console.log(user);
+ 
     user.devices.push(response._id.toString());
     await user.save();
 
@@ -87,8 +87,6 @@ const {decodeJwtToken,reversedNum, getJwtToken}=require('../utils/helpers')
             break;
         }
     }
-
-    console.log("DEVICES",devices);
 
 
     res.json({

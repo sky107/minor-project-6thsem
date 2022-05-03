@@ -98,7 +98,7 @@ router.post('/register',async (req,res,next)=>{
           name: userTobeLogin.name,
           email: userTobeLogin.email,
           admin: userTobeLogin.admin,
-        });
+        },'12hr');
   
         if (result) {
           req['session'].token=token;
