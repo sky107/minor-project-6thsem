@@ -12,7 +12,8 @@
 const ActivitySchema = new mongoose.Schema(
  {
    deviceId:String,
-   ipAddress:String
+   ipAddress:String,
+   deviceOwnerDocId:mongoose.Schema.Types.ObjectId,
  },
  { timestamps: true }
 );

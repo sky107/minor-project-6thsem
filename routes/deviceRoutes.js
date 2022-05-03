@@ -7,7 +7,7 @@
  const jwt = require("jsonwebtoken");
  const router = express.Router();
  const UserModel = require("../models/users.model");
-const {decodeJwtToken,reversedNum}=require('../utils/helpers')
+const {decodeJwtToken,reversedNum, getJwtToken}=require('../utils/helpers')
  const DeviceModel=require('../models/devices.model')
 
 
@@ -15,6 +15,7 @@ const {decodeJwtToken,reversedNum}=require('../utils/helpers')
  router.get('/devices',async (req,res,next)=>{
    
     const {token}=req.session;
+    console.log("DECOED",getJwtToken(token));
     const {id:userId}=decodeJwtToken(token);
     const time = new Date().getTime();
     const id = reversedNum(time);

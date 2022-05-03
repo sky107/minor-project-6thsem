@@ -41,10 +41,19 @@ admin.initializeApp({
 
 const db = getFirestore();
 var jsonParser = bodyParser.json();
-
+const authMiddlware=(req,res,next)=>{
+  console.log("TOKNE",req.session.token);
+  if(req.session.token){
+    next();
+  }else
+   res.json({
+    success:false,
+    message:"Unauthorized"
+  })
+}
 app.use(jsonParser,authRoutes);
-app.use(jsonParser,deviceRoutes);
-app.use(jsonParser,activityRoutes);
+app.use(jsonParser,authMiddlware,deviceRoutes);
+app.use(jsonParser,authMiddlware,activityRoutes);
 app.get('/test',jsonParser,(req,res,next)=>{
   const {email}=req.query;
   console.log(email);
