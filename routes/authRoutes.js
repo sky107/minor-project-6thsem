@@ -98,6 +98,7 @@ router.post('/register',async (req,res,next)=>{
           name: userTobeLogin.name,
           email: userTobeLogin.email,
           admin: userTobeLogin.admin,
+          phone:userTobeLogin.phone
         },'12hr');
   
         if (result) {
@@ -111,6 +112,7 @@ router.post('/register',async (req,res,next)=>{
               token: token,
             },
           });
+          
         } else {
           res.json({
             success: false,

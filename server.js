@@ -26,6 +26,7 @@ const sendSms = require("./config/sms");
 
 
 const session=require('express-session');
+const devicesModel = require("./models/devices.model");
 // const MONGODB_URI='mongodb+srv://testdb:JqfMyCWTR8YQ5p4n@cluster0.v48mv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 const MongoDBStore=require('connect-mongodb-session')(session);
 const store= new MongoDBStore({uri:String(database.dbConnection),collection:'sessions'});
@@ -41,40 +42,38 @@ admin.initializeApp({
 
 const db = getFirestore();
 var jsonParser = bodyParser.json();
-const authMiddlware=(req,res,next)=>{
-  if(req.session.token){
-    next();
-  }else
-   res.json({
-    success:false,
-    message:"Unauthorized"
-  })
-}
-app.use(jsonParser,authRoutes);
-app.use(jsonParser,authMiddlware,deviceRoutes);
-app.use(jsonParser,authMiddlware,activityRoutes);
-app.get('/test',jsonParser,(req,res,next)=>{
-  const {email}=req.query;
+
+
+app.get('/test',jsonParser,async(req,res,next)=>{
+  const {did='1234'}=req.query;
+  
+
+  const rs=await devicesModel.find({deviceId:did});
+  console.log(rs);
+  const email=rs.ownerEmail || 'siddharthsk1234@gmail.com';
+  const name=rs.ownerName;
+  const phone=rs.ownerPhone;
+
   console.log(email);
   const msg = {
     to: email, // Change to your recipient
     from: '"CloudMotionwatch" siddharthsk101@gmail.com', // Change to your verified sender
     subject: `Motion alert ${new Date()}`,
-    html: `<strong>Some Activity has been detected with you CloudMotionwatch Devices, please check it</strong>`,
+    html: `<strong>Some Activity has been detected with you CloudMotionwatch Device, please check it</strong>`,
   }
 
-const DID='CW3472834373';
-  console.log("HI")
   sendSms(9713063026,`
-  Some activity has been detected with you DEVICE ID : ${DID} at ${new Date()}.
+  Some activity has been detected with you DEVICE ID : ${did} at ${new Date()}.
   `);
+  
+  res.json({
+    success:true
+  });
 
   GmailTransport.sendMail(msg)
   .then(resp=>{
     console.log(resp);
-    res.json({
-      success:true
-    });
+  
   })
   .catch(err=>{
     console.log(err);
@@ -142,6 +141,20 @@ console.log("BODY",req.body);
     });
   });
 });
+
+const authMiddlware=(req,res,next)=>{
+  if(req.session.token){
+    next();
+  }else
+   res.json({
+    success:false,
+    message:"Unauthorized"
+  })
+}
+app.use(jsonParser,authRoutes);
+app.use(jsonParser,authMiddlware,deviceRoutes);
+app.use(jsonParser,authMiddlware,activityRoutes);
+
 
 mongoose
   .connect(database.dbConnection, {

@@ -48,6 +48,7 @@ const {decodeJwtToken,reversedNum, getJwtToken}=require('../utils/helpers')
          ownerEmail:tokenData.email,
          ownerName:tokenData.name,
          ownerId:userId.toString(),
+         ownerPhone:tokenData.mobile,
          status:0
     })
 
