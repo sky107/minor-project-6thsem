@@ -59,7 +59,7 @@ app.get('/test',jsonParser,async(req,res,next)=>{
     to: email, // Change to your recipient
     from: '"CloudMotionwatch" siddharthsk101@gmail.com', // Change to your verified sender
     subject: `Motion alert ${new Date()}`,
-    html: `<strong>Some Activity has been detected with you CloudMotionwatch Device, please check it</strong>`,
+    html: `<strong>Some Activity has been detected with you CloudMotionwatch Device ${did}, please check it</strong>`,
   }
 
   sendSms(9713063026,`
