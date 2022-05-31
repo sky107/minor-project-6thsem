@@ -27,6 +27,7 @@ const sendSms = require("./config/sms");
 
 const session=require('express-session');
 const devicesModel = require("./models/devices.model");
+const activityModel = require("./models/activity.model");
 // const MONGODB_URI='mongodb+srv://testdb:JqfMyCWTR8YQ5p4n@cluster0.v48mv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 const MongoDBStore=require('connect-mongodb-session')(session);
 const store= new MongoDBStore({uri:String(database.dbConnection),collection:'sessions'});
@@ -62,6 +63,15 @@ app.get('/test',jsonParser,async(req,res,next)=>{
     html: `<strong>Some Activity has been detected with you CloudMotionwatch Device ${did}, please check it</strong>`,
   }
 
+  
+
+  // const activity= await activityModel.create({
+  //   deviceId:did,
+  //  ipAddress:'12.232.32333.3',
+  //  deviceOwnerDocId:'2Adws22dw',
+  // })
+
+  z
   sendSms(9713063026,`
   Some activity has been detected with you DEVICE ID : ${did} at ${new Date()}.
   `);
